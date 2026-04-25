@@ -27,16 +27,19 @@ body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hirag
 .logo-area { display: flex; align-items: center; gap: 12px; }
 .logo-text { font-size: 14px; font-weight: 700; color: var(--brand); letter-spacing: .08em; }
 .logo-sub { font-size: 10px; color: var(--text-tertiary); }
+.header-right { display: flex; align-items: center; gap: 10px; }
 .tab-row { display: flex; border: 1px solid var(--border-strong); border-radius: var(--radius-md); overflow: hidden; }
 .tab-btn { padding: 8px 22px; font-size: 13px; cursor: pointer; border: none; background: var(--bg-primary); color: var(--text-secondary); transition: all .15s; font-family: inherit; }
 .tab-btn.active { background: var(--brand); color: #fff; font-weight: 600; }
 .tab-btn:hover:not(.active) { background: var(--bg-secondary); }
+.admin-lock-btn { padding: 7px 14px; border: 1px solid var(--border-strong); border-radius: var(--radius-md); background: var(--bg-primary); color: var(--text-tertiary); font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all .15s; font-family: inherit; }
+.admin-lock-btn:hover { border-color: var(--brand); color: var(--brand); }
+.admin-lock-btn.unlocked { border-color: #3B6D11; color: #3B6D11; background: #EAF3DE; }
 
 .main-content { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; }
 
 .progress-bg { background: var(--border); border-radius: 99px; height: 5px; margin-bottom: 1.5rem; }
 .progress-fill { background: var(--brand); border-radius: 99px; height: 5px; transition: width 0.4s ease; }
-
 .sec-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px; }
 .sec-title { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
 .sec-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7; }
@@ -92,12 +95,10 @@ body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hirag
 .bar-bg { height: 5px; background: var(--bg-secondary); border-radius: 99px; margin-top: 8px; }
 .bar-fill { height: 5px; border-radius: 99px; }
 
-/* 凡例 */
 .legend-scale { display: flex; align-items: center; gap: 6px; margin-bottom: 1rem; font-size: 11px; color: var(--text-tertiary); flex-wrap: wrap; }
 .legend-chips { display: flex; gap: 3px; }
 .legend-chip { width: 26px; height: 16px; border-radius: 3px; }
 
-/* コピーボックス */
 .copy-result-box { background: var(--bg-secondary); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 12px; }
 .copy-result-label { font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
 .copy-result-text { font-size: 12px; color: var(--text-secondary); line-height: 1.7; white-space: pre-wrap; background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius-md); padding: .75rem; max-height: 160px; overflow-y: auto; }
@@ -105,7 +106,6 @@ body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hirag
 .copy-btn:hover { background: var(--brand-dark); }
 .copy-btn.copied { background: #3B6D11; }
 .analyze-note { font-size: 13px; color: var(--text-secondary); text-align: center; margin-bottom: 1rem; line-height: 1.6; }
-
 .to-dash-btn { width: 100%; padding: 14px; border-radius: var(--radius-md); background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-strong); font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; }
 
 /* ダッシュボード */
@@ -129,9 +129,27 @@ body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hirag
 .role-badge { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 99px; background: var(--bg-secondary); color: var(--text-secondary); white-space: nowrap; border: 1px solid var(--border); }
 .new-badge { display: inline-block; font-size: 9px; padding: 1px 6px; border-radius: 99px; background: var(--brand-light); color: var(--brand); margin-left: 4px; font-weight: 700; }
 .empty-state { text-align: center; padding: 3rem; color: var(--text-tertiary); font-size: 14px; }
+
+/* 管理者ログインモーダル */
+.modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 200; }
+.modal { background: var(--bg-primary); border-radius: var(--radius-lg); padding: 2rem; width: 90%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+.modal-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.modal-desc { font-size: 13px; color: var(--text-tertiary); margin-bottom: 1.5rem; }
+.modal-input { width: 100%; padding: 10px 14px; border: 1px solid var(--border-strong); border-radius: var(--radius-md); font-size: 14px; font-family: inherit; outline: none; margin-bottom: 10px; transition: border-color .15s; }
+.modal-input:focus { border-color: var(--brand); }
+.modal-error { font-size: 12px; color: #9a1e1e; margin-bottom: 10px; display: none; }
+.modal-btns { display: flex; gap: 8px; }
+.modal-cancel { flex: 1; padding: 10px; border: 1px solid var(--border-strong); border-radius: var(--radius-md); background: transparent; color: var(--text-secondary); font-size: 14px; cursor: pointer; font-family: inherit; }
+.modal-submit { flex: 2; padding: 10px; border: none; border-radius: var(--radius-md); background: var(--brand); color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.modal-submit:hover { background: var(--brand-dark); }
+
+/* 管理者専用バナー */
+.admin-banner { background: #1A4A8A; color: #fff; text-align: center; padding: 6px; font-size: 12px; font-weight: 600; letter-spacing: .05em; }
 </style>
 </head>
 <body>
+
+<div id="admin-banner" style="display:none;" class="admin-banner">🔐 管理者モードで閲覧中</div>
 
 <header class="app-header">
   <div class="logo-area">
@@ -143,9 +161,14 @@ body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hirag
       <div class="logo-sub">組織サーベイ</div>
     </div>
   </div>
-  <div class="tab-row">
-    <button class="tab-btn active" id="tab-survey" onclick="switchTab('survey')">サーベイ回答</button>
-    <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')">ダッシュボード</button>
+  <div class="header-right">
+    <div class="tab-row" id="tab-row">
+      <button class="tab-btn active" id="tab-survey" onclick="switchTab('survey')">サーベイ回答</button>
+      <button class="tab-btn" id="tab-dash" onclick="switchTab('dash')" style="display:none;">ダッシュボード</button>
+    </div>
+    <button class="admin-lock-btn" id="admin-lock-btn" onclick="openAdminModal()" title="管理者ログイン">
+      🔒 管理者
+    </button>
   </div>
 </header>
 
@@ -154,7 +177,74 @@ body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hirag
   <div id="dash-area" style="display:none;"></div>
 </main>
 
+<!-- 管理者ログインモーダル -->
+<div class="modal-bg" id="admin-modal" style="display:none;">
+  <div class="modal">
+    <div class="modal-title">🔐 管理者ログイン</div>
+    <div class="modal-desc">ダッシュボードを閲覧するには管理者パスワードを入力してください。</div>
+    <input class="modal-input" type="password" id="admin-pw-input" placeholder="パスワードを入力" onkeydown="if(event.key==='Enter') submitAdminLogin()">
+    <div class="modal-error" id="admin-error">パスワードが正しくありません。</div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeAdminModal()">キャンセル</button>
+      <button class="modal-submit" onclick="submitAdminLogin()">ログイン</button>
+    </div>
+  </div>
+</div>
+
 <script>
+var isAdmin = false;
+var lastPrompt = '';
+
+// ===== 管理者認証 =====
+function openAdminModal() {
+  if (isAdmin) {
+    // ログアウト
+    isAdmin = false;
+    document.getElementById('tab-dash').style.display = 'none';
+    document.getElementById('admin-lock-btn').className = 'admin-lock-btn';
+    document.getElementById('admin-lock-btn').textContent = '🔒 管理者';
+    document.getElementById('admin-banner').style.display = 'none';
+    switchTab('survey');
+    return;
+  }
+  document.getElementById('admin-modal').style.display = 'flex';
+  document.getElementById('admin-pw-input').value = '';
+  document.getElementById('admin-error').style.display = 'none';
+  setTimeout(function() { document.getElementById('admin-pw-input').focus(); }, 100);
+}
+
+function closeAdminModal() {
+  document.getElementById('admin-modal').style.display = 'none';
+}
+
+function submitAdminLogin() {
+  var pw = document.getElementById('admin-pw-input').value;
+  fetch('/api/auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pw })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.ok) {
+      isAdmin = true;
+      closeAdminModal();
+      document.getElementById('tab-dash').style.display = 'block';
+      document.getElementById('admin-lock-btn').className = 'admin-lock-btn unlocked';
+      document.getElementById('admin-lock-btn').textContent = '🔓 管理者（ログアウト）';
+      document.getElementById('admin-banner').style.display = 'block';
+      switchTab('dash');
+    } else {
+      document.getElementById('admin-error').style.display = 'block';
+      document.getElementById('admin-pw-input').value = '';
+      document.getElementById('admin-pw-input').focus();
+    }
+  })
+  .catch(function() {
+    document.getElementById('admin-error').style.display = 'block';
+  });
+}
+
 // ===== 7段階ヒートマップ =====
 function heatColor(score) {
   var s = Math.round(score);
@@ -183,8 +273,6 @@ var LEGEND_HTML =
   '<span style="margin-left:8px;font-size:10px;color:#aaa">赤=低 / 白=中間 / 青=高</span>' +
   '</div>';
 
-var lastPrompt = '';
-
 function copyPrompt() {
   var btn = document.getElementById('copy-btn');
   var ta = document.createElement('textarea');
@@ -212,77 +300,7 @@ var CATEGORIES = [
 ];
 
 var ALL_QS = [
-  [8,"仕事が片付いていても、定時で退社するのは躊躇してしまう"],
-  [9,"同僚同士の飲みに自分の上司を誘いたい"],
-  [10,"上司とはフランクに何でも言い合える関係だ"],
-  [11,"上司の指示をしっかり吟味してから仕事に取り掛かるようにしている"],
-  [12,"何のためにその業務を遂行しているのかを見失うことがよくある"],
-  [13,"会社にはモチベーションを上げてくれる職場を望んでいる"],
-  [14,"仕事の相談を直属の上司以外の上司にすることが多い"],
-  [15,"期限を超えても品質が120%になっていれば良い"],
-  [16,"仕事を最速で終えることを意識している"],
-  [17,"失敗してしまった場合、次はどのようにするのかを優先して考えるようにしている"],
-  [18,"自分の責任範囲でなくても、他部署の人が困っていれば、自主的に助けるべきである"],
-  [19,"期限よりも早く終えることの価値はない"],
-  [20,"結果よりも全力で頑張ったかどうかが大切だ"],
-  [21,"やったことの振り返りよりも、次はどんな新しいことをやるのかを考えたい"],
-  [22,"うまくいかなかったときほど、上司への報告を工夫している"],
-  [23,"モチベーションによって仕事のパフォーマンスに差が出るのは仕方ない"],
-  [24,"業務中の周りの視線が気になる"],
-  [25,"出世はなるべくしたくない"],
-  [26,"将来の目標を明確に持っている"],
-  [27,"もっと仕事ができるようになりたい"],
-  [28,"仕事をしている最中、失敗してしまうんじゃないかと考えることがよくある"],
-  [29,"優先順位をつけて仕事をするようにしている"],
-  [30,"アウトプットの精度を高めるためであれば納期が遅れても仕方ない"],
-  [31,"時間を掛けて議論を深めることによって、真の問題点が見つかる"],
-  [32,"自分が所属していない部署であっても、気になることがあれば積極的に意見を言うべきである"],
-  [33,"お客様に満足してもらえなければ意味がない"],
-  [34,"仕事に取り掛かる前に、腑に落ちるまで考え抜くことが重要である"],
-  [35,"誰に確認したら良いか迷うことがよくある"],
-  [36,"なるべく今の状態をキープしたい"],
-  [37,"周りの評価を気にせず、自分らしく生きる事が何よりも大切だ"],
-  [38,"上司から何を求められているのかを基準にして、やるべきことを考えている"],
-  [39,"部署が変わればもっと活躍できると思うことがある"],
-  [40,"漠然とでも将来こうなりたいというイメージを持っている"],
-  [41,"自分が正しいと思えば周りの反応は気にしない"],
-  [42,"やり方には非常に拘りがある方だ"],
-  [43,"自分の評価について、他社の友人と自社の同僚だと、他社の友人と比べた違いのほうが気になる"],
-  [44,"上司の発言よりもお客様の声を優先すべきである"],
-  [45,"1年後の目標が明確である"],
-  [46,"社員旅行、社内の飲み会、社内の運動会などのイベントに積極的に参加したい"],
-  [47,"なぜ自分がやらなければいけないのかと思う仕事がよくある"],
-  [48,"上司の指示に納得いかないことが多い"],
-  [49,"次に何をしようかという瞬間がよくある"],
-  [50,"競争がある環境は苦手である"],
-  [51,"転職すればもっと活躍できると思うことがある"],
-  [52,"自分自身ができないことを部下に指示する上司はダメな上司だと思う"],
-  [53,"協力して仕事をしていくことが何よりも大切である"],
-  [54,"上司が違えばもっと成果を出せると思うことがある"],
-  [55,"プロジェクトの成否は計画の精度をいかに高めることができるかによってすべて決まる"],
-  [56,"責任を果たすために十分な権限が与えられていないと思うことがある"],
-  [57,"会社が成長する第一条件は仲が良い職場であることだ"],
-  [58,"上司とは友達のように仲良しである"],
-  [59,"まずは動いてから修正するということを心掛けている"],
-  [60,"常に今なにをすべきかが明確である"],
-  [61,"いま、人生の目標に向かって進んでいるという実感がある"],
-  [62,"周りから何と言われようが、自分が納得することのほうが大切だ"],
-  [63,"上司からのプレッシャーを感じることがある"],
-  [64,"現状維持が怖い"],
-  [65,"数字を追いすぎると仲が悪くなってしまうと思う"],
-  [66,"新しいことほど、やってみないとわからない"],
-  [67,"自分の評価に納得できないことがある"],
-  [68,"上司と意見が違っても自分が正しいと思うことをやるべきである"],
-  [69,"失敗した時に誰の責任なのか明確になっている"],
-  [70,"仕事をするときは常に期限を意識している"],
-  [71,"目標を達成できなかったときのこと考えることがよくある"],
-  [72,"上司にはいつも期限を確認するようにしている"],
-  [73,"努力を評価して欲しいと思っている"],
-  [74,"仕事の優先順位に悩むことはない"],
-  [75,"どうすれば自分の評価が上がるのか明確である"],
-  [76,"どんなことでも納得してから業務に取り組むようにしている"],
-  [77,"いまの会社で生きていく上で最も重要なことは同僚とのつながりである"],
-  [78,"時間制限が無い方がクリエイティブな仕事ができる"]
+  [8,"仕事が片付いていても、定時で退社するのは躊躇してしまう"],[9,"同僚同士の飲みに自分の上司を誘いたい"],[10,"上司とはフランクに何でも言い合える関係だ"],[11,"上司の指示をしっかり吟味してから仕事に取り掛かるようにしている"],[12,"何のためにその業務を遂行しているのかを見失うことがよくある"],[13,"会社にはモチベーションを上げてくれる職場を望んでいる"],[14,"仕事の相談を直属の上司以外の上司にすることが多い"],[15,"期限を超えても品質が120%になっていれば良い"],[16,"仕事を最速で終えることを意識している"],[17,"失敗してしまった場合、次はどのようにするのかを優先して考えるようにしている"],[18,"自分の責任範囲でなくても、他部署の人が困っていれば、自主的に助けるべきである"],[19,"期限よりも早く終えることの価値はない"],[20,"結果よりも全力で頑張ったかどうかが大切だ"],[21,"やったことの振り返りよりも、次はどんな新しいことをやるのかを考えたい"],[22,"うまくいかなかったときほど、上司への報告を工夫している"],[23,"モチベーションによって仕事のパフォーマンスに差が出るのは仕方ない"],[24,"業務中の周りの視線が気になる"],[25,"出世はなるべくしたくない"],[26,"将来の目標を明確に持っている"],[27,"もっと仕事ができるようになりたい"],[28,"仕事をしている最中、失敗してしまうんじゃないかと考えることがよくある"],[29,"優先順位をつけて仕事をするようにしている"],[30,"アウトプットの精度を高めるためであれば納期が遅れても仕方ない"],[31,"時間を掛けて議論を深めることによって、真の問題点が見つかる"],[32,"自分が所属していない部署であっても、気になることがあれば積極的に意見を言うべきである"],[33,"お客様に満足してもらえなければ意味がない"],[34,"仕事に取り掛かる前に、腑に落ちるまで考え抜くことが重要である"],[35,"誰に確認したら良いか迷うことがよくある"],[36,"なるべく今の状態をキープしたい"],[37,"周りの評価を気にせず、自分らしく生きる事が何よりも大切だ"],[38,"上司から何を求められているのかを基準にして、やるべきことを考えている"],[39,"部署が変わればもっと活躍できると思うことがある"],[40,"漠然とでも将来こうなりたいというイメージを持っている"],[41,"自分が正しいと思えば周りの反応は気にしない"],[42,"やり方には非常に拘りがある方だ"],[43,"自分の評価について、他社の友人と自社の同僚だと、他社の友人と比べた違いのほうが気になる"],[44,"上司の発言よりもお客様の声を優先すべきである"],[45,"1年後の目標が明確である"],[46,"社員旅行、社内の飲み会、社内の運動会などのイベントに積極的に参加したい"],[47,"なぜ自分がやらなければいけないのかと思う仕事がよくある"],[48,"上司の指示に納得いかないことが多い"],[49,"次に何をしようかという瞬間がよくある"],[50,"競争がある環境は苦手である"],[51,"転職すればもっと活躍できると思うことがある"],[52,"自分自身ができないことを部下に指示する上司はダメな上司だと思う"],[53,"協力して仕事をしていくことが何よりも大切である"],[54,"上司が違えばもっと成果を出せると思うことがある"],[55,"プロジェクトの成否は計画の精度をいかに高めることができるかによってすべて決まる"],[56,"責任を果たすために十分な権限が与えられていないと思うことがある"],[57,"会社が成長する第一条件は仲が良い職場であることだ"],[58,"上司とは友達のように仲良しである"],[59,"まずは動いてから修正するということを心掛けている"],[60,"常に今なにをすべきかが明確である"],[61,"いま、人生の目標に向かって進んでいるという実感がある"],[62,"周りから何と言われようが、自分が納得することのほうが大切だ"],[63,"上司からのプレッシャーを感じることがある"],[64,"現状維持が怖い"],[65,"数字を追いすぎると仲が悪くなってしまうと思う"],[66,"新しいことほど、やってみないとわからない"],[67,"自分の評価に納得できないことがある"],[68,"上司と意見が違っても自分が正しいと思うことをやるべきである"],[69,"失敗した時に誰の責任なのか明確になっている"],[70,"仕事をするときは常に期限を意識している"],[71,"目標を達成できなかったときのこと考えることがよくある"],[72,"上司にはいつも期限を確認するようにしている"],[73,"努力を評価して欲しいと思っている"],[74,"仕事の優先順位に悩むことはない"],[75,"どうすれば自分の評価が上がるのか明確である"],[76,"どんなことでも納得してから業務に取り組むようにしている"],[77,"いまの会社で生きていく上で最も重要なことは同僚とのつながりである"],[78,"時間制限が無い方がクリエイティブな仕事ができる"]
 ];
 
 var QS_PER_PAGE = 8;
@@ -463,7 +481,7 @@ function renderSurveyResult() {
   }).join('');
 
   document.getElementById('survey-area').innerHTML =
-    '<div class="success-banner">✓ 回答が完了しました。結果はダッシュボードに自動で追加されました。</div>' +
+    '<div class="success-banner">✓ 回答が完了しました。ありがとうございました！</div>' +
     '<div style="margin-bottom:1.5rem">' +
       '<div style="font-size:20px;font-weight:700;color:#1a1a1a">' + attrs['a-name'] + ' さんの結果</div>' +
       '<div style="font-size:13px;color:#999;margin-top:2px">' + attrs['a-dept'] + ' / ' + (attrs['q4'] || '') + ' / 勤続' + (attrs['q5'] || '') + '</div>' +
@@ -484,8 +502,7 @@ function renderSurveyResult() {
       '<div class="copy-result-label"><span>AI分析用テキスト（コピーしてclaude.aiに貼り付けてください）</span><button class="copy-btn" id="copy-btn" onclick="copyPrompt()">コピー</button></div>' +
       '<div class="copy-result-text">' + lastPrompt.replace(/\n/g, '<br>') + '</div>' +
     '</div>' +
-    '<p class="analyze-note">上のテキストをコピーして <strong>claude.ai</strong> のチャットに貼り付けると詳しい分析が届きます。</p>' +
-    '<button class="to-dash-btn" onclick="switchTab(\'dash\');resetSurvey()">ダッシュボードで全員の結果を見る →</button>';
+    '<p class="analyze-note">上のテキストをコピーして <strong>claude.ai</strong> のチャットに貼り付けると詳しい分析が届きます。</p>';
 
   setTimeout(function() {
     var ctx = document.getElementById('radar');
